@@ -1,3 +1,11 @@
-<p>
-  input works!
-</p>
+<ion-input
+  style="border-bottom: 1px solid cadetblue !important"
+  [label]="label"
+  labelPlacement="floating"
+  [placeholder]="placeholder"
+  [type]="type"
+>
+  @if(type=="password"){
+  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+  }
+</ion-input>
