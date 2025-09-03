@@ -1,64 +1,73 @@
 <ion-content [fullscreen]="true">
-
-<ion-card style="width: auto; height: 720p;">
-  <img src="../../../assets/BCO.44102ad6-91e4-48bc-8875-76b7df39b546.png" alt="News App">
-</ion-card>
-
-<form [formGroup]="registerForm" (ngSubmit)="doRegister()">
-  <ion-card>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <app-input
-              label="Name"
-              placeholder="Jane"
-              type="text"
-              [control]="name"
-            ></app-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <app-input
-              label="Last Name"
-              placeholder="Doe"
-              type="text"
-              [control]="lastName"
-            ></app-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <app-input
-              label="Email"
-              placeholder="Jane@Doe.com"
-              type="email"
-              [control]="email"
-            ></app-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <app-input
-              label="Password"
-              placeholder="*****"
-              type="password"
-              [control]="password"
-            ></app-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <app-button
-              value="Registrarse"
-              type="submit"
-              [disabled]="registerForm.invalid"
-            ></app-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
+  <ion-card style="width: auto; height: 720p">
+    <img
+      src="../../../assets/BCO.44102ad6-91e4-48bc-8875-76b7df39b546.png"
+      alt="News App"
+    />
   </ion-card>
-</form>
+
+  <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <app-input
+                label="Name"
+                placeholder="Jane"
+                type="text"
+                [control]="name"
+              ></app-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <app-input
+                label="Last Name"
+                placeholder="Doe"
+                type="text"
+                [control]="lastName"
+              ></app-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <app-input
+                label="Email"
+                placeholder="Jane@Doe.com"
+                type="email"
+                [control]="email"
+              ></app-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <app-input
+                label="Password"
+                placeholder="*****"
+                type="password"
+                [control]="password"
+              ></app-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <app-button
+                value="Registrarse"
+                type="submit"
+                [disabled]="registerForm.invalid"
+              ></app-button>
+              <app-button
+                value="Iniciar Sesión"
+                type="button"
+                fill="clear"
+                (click)="goToLogin()"
+              >
+              </app-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>

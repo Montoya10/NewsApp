@@ -44,6 +44,11 @@ export class RegisterPage implements OnInit {
     });
   }
 
+  public goToLogin() {
+  this.router.navigate(['/login']);
+}
+
+
   public async doRegister() {
     try {
       await this.userSrv.register(this.registerForm.value);
