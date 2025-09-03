@@ -1,28 +1,13 @@
 <ion-content [fullscreen]="true">
+
+  <ion-card style="width: auto; height: 720p;">
+    <img src="../../../assets/BCO.44102ad6-91e4-48bc-8875-76b7df39b546.png" alt="News App">
+  </ion-card>
+
   <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
     <ion-card>
       <ion-card-content>
         <ion-grid>
-          <ion-row>
-            <ion-col>
-              <app-input
-                label="Name"
-                placeholder="Jane"
-                type="text"
-                [control]="name"
-              ></app-input>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <app-input
-                label="Last Name"
-                placeholder="Doe"
-                type="text"
-                [control]="lastName"
-              ></app-input>
-            </ion-col>
-          </ion-row>
           <ion-row>
             <ion-col>
               <app-input
@@ -49,8 +34,17 @@
                 value="Login"
                 type="submit"
                 [disabled]="loginForm.invalid"
-              >
-              </app-button>
+              ></app-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <app-button
+                value="Registrarse"
+                type="button"
+                (click)="goToRegister()"
+                fill="clear"
+              ></app-button>
             </ion-col>
           </ion-row>
         </ion-grid>

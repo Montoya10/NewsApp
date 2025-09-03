@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/services/user/user';
 import { AlertController } from '@ionic/angular'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,20 +20,28 @@ export class LoginPage implements OnInit {
 
   constructor(
     private readonly userSrv: User,
-    private alertController: AlertController 
+    private alertController: AlertController ,
+     private router: Router
   ) {
     this.initForm();
   }
 
   ngOnInit() {}
 
+public goToRegister() {
+  this.router.navigate(['/register']);
+}
+
   public async doLogin() {
     try {
-      await this.userSrv.register(this.loginForm.value); 
+      await this.userSrv.login(this.loginForm.value.email, this.loginForm.value.password);
       this.loginForm.reset();
+      console.log('Login exitoso'); 
+      this.router.navigate(['/home']);
     } catch (error: any) {
       this.presentAlert('Cálmate:', error.message || 'Ocurrió un error');
     }
+    
   }
 
   private async presentAlert(header: string, message: string) {
@@ -45,8 +54,7 @@ export class LoginPage implements OnInit {
   }
 
   private initForm() {
-    this.name = new FormControl('', [Validators.required]);
-    this.lastName = new FormControl('', [Validators.required]);
+    
     this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', [
       Validators.required,
@@ -54,8 +62,7 @@ export class LoginPage implements OnInit {
     ]);
 
     this.loginForm = new FormGroup({
-      name: this.name,
-      lastName: this.lastName,
+      
       password: this.password,
       email: this.email,
     });

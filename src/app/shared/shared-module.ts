@@ -7,8 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from './services/user/user';
 import { Uuid } from './providers/uuid/uuid';
 
+
+
 const services =[User];
-const providers =[Storage, Uuid];
+const providers =[Storage, Uuid,];
 
 @NgModule({
   declarations: [InputComponent, ButtonComponent], 
