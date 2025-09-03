@@ -22,7 +22,7 @@ export class User {
     const newUser: IUser = {
       uuid: this.uuidSrv.get(),
       ...user,
-      password: user.password, // Guarda la contraseña tal cual
+      password: btoa(user.password), 
     };
 
     users.push(newUser);
@@ -33,7 +33,7 @@ export class User {
 
   async login(email: string, password: string): Promise<IUser> {
     const users: IUser[] = (await this.storageSrv.get('users')) || [];
-    const user = users.find((u) => u.email === email && u.password === password);
+    const user = users.find((u) => u.email === email && u.password === btoa(password));
     if (!user) {
       throw new Error('Usuario no encontrado');
     }
