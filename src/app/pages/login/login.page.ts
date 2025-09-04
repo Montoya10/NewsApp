@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/services/user/user';
 import { AlertController } from '@ionic/angular'; 
 import { Router } from '@angular/router';
+import { Storage } from 'src/app/shared/providers/storage/storage';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
   constructor(
     private readonly userSrv: User,
     private alertController: AlertController ,
-     private router: Router
+     private router: Router,
+     private storageSrv: Storage
   ) {
     this.initForm();
   }
@@ -34,9 +36,10 @@ public goToRegister() {
 
   public async doLogin() {
     try {
-      await this.userSrv.login(this.loginForm.value.email, this.loginForm.value.password);
+      const user = await this.userSrv.login(this.loginForm.value.email, this.loginForm.value.password);
+      
+      await this.storageSrv.set('AUTH', JSON.stringify({ uuid: user.uuid }));
       this.loginForm.reset();
-      console.log('Login exitoso'); 
       this.router.navigate(['/home']);
     } catch (error: any) {
       this.presentAlert('Cálmate:', error.message || 'Ocurrió un error');
