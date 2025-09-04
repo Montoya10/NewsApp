@@ -1,6 +1,5 @@
-import { CanActivateFn } from '@angular/router';
+import {  Router,CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { Storage } from 'src/app/shared/providers/storage/storage';
 
 export const isloggedGuard: CanActivateFn = async (route, state) => {
