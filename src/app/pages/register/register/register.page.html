@@ -50,6 +50,23 @@
               ></app-input>
             </ion-col>
           </ion-row>
+          
+          <!-- Nuevo campo: Select de países -->
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">País</ion-label>
+                <app-country-select 
+                  formControlName="country"
+                  placeholder="Selecciona tu país">
+                </app-country-select>
+              </ion-item>
+              <ion-note *ngIf="country.invalid && country.touched" color="danger" style="padding: 10px;">
+                Por favor selecciona un país
+              </ion-note>
+            </ion-col>
+          </ion-row>
+
           <ion-row>
             <ion-col>
               <app-button
@@ -62,8 +79,7 @@
                 type="button"
                 fill="clear"
                 (click)="goToLogin()"
-              >
-              </app-button>
+              ></app-button>
             </ion-col>
           </ion-row>
         </ion-grid>

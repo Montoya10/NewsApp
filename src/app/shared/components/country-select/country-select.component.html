@@ -1,0 +1,32 @@
+<!-- shared/components/country-select/country-select.component.html -->
+<ion-item>
+  <ion-label>País</ion-label>
+  
+  <ion-select 
+    [compareWith]="compareWith"
+    (ionChange)="onCountrySelect($event)"
+    [value]="selectedCountry"
+    interface="action-sheet"
+    placeholder="Selecciona un país">
+    
+    <ion-select-option 
+      *ngFor="let country of countries" 
+      [value]="country">
+      
+      <div class="country-option">
+        <img 
+          [src]="country.flag" 
+          [alt]="country.name" 
+          class="country-flag"
+          onerror="this.style.display='none'">
+        <span class="country-name">{{ country.name }}</span>
+      </div>
+    </ion-select-option>
+  </ion-select>
+
+  <ion-spinner 
+    *ngIf="isLoading" 
+    slot="end" 
+    name="crescent">
+  </ion-spinner>
+</ion-item>

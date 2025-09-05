@@ -1,0 +1,31 @@
+// shared/components/country-select/country-select.component.scss
+.country-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.country-flag {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--ion-color-light);
+}
+
+.country-name {
+  font-size: 14px;
+}
+
+// Estilo para el selected value en el trigger
+ion-select::part(placeholder),
+ion-select::part(text) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+ion-select::part(icon) {
+  color: var(--ion-color-medium);
+}

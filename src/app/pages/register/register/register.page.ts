@@ -15,6 +15,7 @@ export class RegisterPage implements OnInit {
   public lastName!: FormControl;
   public email!: FormControl;
   public password!: FormControl;
+  public country!: FormControl;
   public registerForm!: FormGroup;
 
   constructor(
@@ -35,22 +36,29 @@ export class RegisterPage implements OnInit {
       Validators.required,
       Validators.minLength(4),
     ]);
+    this.country = new FormControl('', [Validators.required]);
 
     this.registerForm = new FormGroup({
       name: this.name,
       lastName: this.lastName,
       email: this.email,
       password: this.password,
+            country: this.country,
     });
   }
 
   public goToLogin() {
-  this.router.navigate(['/login']);
-}
-
+    this.router.navigate(['/login']);
+  }
 
   public async doRegister() {
     try {
+      
+      if (this.registerForm.invalid) {
+        await this.presentAlert('Error', 'Por favor completa todos los campos requeridos');
+        return;
+      }
+
       await this.userSrv.register(this.registerForm.value);
       this.registerForm.reset();
       await this.presentAlert('¡Registro exitoso!', 'Ahora puedes iniciar sesión.');
