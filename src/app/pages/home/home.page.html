@@ -1,4 +1,3 @@
-<!-- src/app/pages/home/home.page.html -->
 <ion-content [fullscreen]="true" class="home-container">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
@@ -27,7 +26,7 @@
   <!-- Content State -->
   @if (!isLoading) {
     
-    <!-- Titulares principales -->
+    <!-- Secciones principales -->
     @if (topHeadlines.length > 0) {
       <ion-list-header class="section-header">
         <ion-label>🔥 Titulares Principales</ion-label>
@@ -39,45 +38,43 @@
       </div>
     }
 
-    <!-- Tecnología -->
-    @if (technologyNews.length > 0) {
-      <ion-list-header class="section-header">
-        <ion-label>💻 Tecnología</ion-label>
-      </ion-list-header>
-      <div class="news-grid">
-        @for (news of technologyNews; track news.url) {
-          <app-news-card [news]="news" [showSource]="true"></app-news-card>
-        }
+    <!-- Selector de categoría -->
+    <ion-segment style="background-color: gainsboro;" [value]="currentCategory" (ionChange)="changeCategory(($event.detail.value + '') || 'technology')">
+      <ion-segment-button value="technology">
+        <ion-label>Tecnología</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="sports">
+        <ion-label>Deportes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="business">
+        <ion-label>Negocios</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- Noticias con infinite scroll -->
+    <div class="news-grid">
+      @for (news of displayedNews; track news.url) {
+        <app-news-card [news]="news" [showSource]="true"></app-news-card>
+      }
+    </div>
+
+    <!-- Loading más noticias -->
+    @if (isLoadingMore) {
+      <div class="loading-more">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Cargando más noticias...</p>
       </div>
     }
 
-    <!-- Deportes -->
-    @if (sportsNews.length > 0) {
-      <ion-list-header class="section-header">
-        <ion-label>⚽ Deportes</ion-label>
-      </ion-list-header>
-      <div class="news-grid">
-        @for (news of sportsNews; track news.url) {
-          <app-news-card [news]="news" [showSource]="true"></app-news-card>
-        }
-      </div>
-    }
-
-    <!-- Negocios -->
-    @if (businessNews.length > 0) {
-      <ion-list-header class="section-header">
-        <ion-label>💼 Negocios</ion-label>
-      </ion-list-header>
-      <div class="news-grid">
-        @for (news of businessNews; track news.url) {
-          <app-news-card [news]="news" [showSource]="true"></app-news-card>
-        }
-      </div>
-    }
+    <!-- Infinite Scroll -->
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content
+        loadingText="Cargando más noticias...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
     <!-- Estado vacío -->
-    @if (topHeadlines.length === 0 && technologyNews.length === 0 && 
-          sportsNews.length === 0 && businessNews.length === 0) {
+    @if (displayedNews.length === 0 && !isLoading) {
       <div class="empty-state">
         <ion-icon name="newspaper-outline"></ion-icon>
         <p>No hay noticias disponibles en este momento</p>

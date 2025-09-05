@@ -7,11 +7,15 @@ import { INews } from 'src/app/interfaces/INews/inews';
   providedIn: 'root'
 })
 export class NewsService {
+  private currentPage = 1;
+  private currentCategory = 'general';
+
   constructor(private httpSrv: Http) {}
 
-  async getNewsByCategory(category: string): Promise<INews[]> {
+  async getNewsByCategory(category: string, page: number = 1): Promise<INews[]> {
     try {
-      const url = `${environment.URL}?q=${category}&language=es&sortBy=publishedAt&apiKey=${environment.API_KEY}`;
+      this.currentCategory = category;
+      const url = `${environment.URL}?q=${category}&language=es&page=${page}&pageSize=10&sortBy=publishedAt&apiKey=${environment.API_KEY}`;
       const response: any = await this.httpSrv.get(url);
       
       return response.articles || [];
@@ -21,9 +25,14 @@ export class NewsService {
     }
   }
 
-  async getTopHeadlines(): Promise<INews[]> {
+  async getMoreNews(): Promise<INews[]> {
+    this.currentPage++;
+    return this.getNewsByCategory(this.currentCategory, this.currentPage);
+  }
+
+  async getTopHeadlines(page: number = 1): Promise<INews[]> {
     try {
-      const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${environment.API_KEY}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=us&page=${page}&pageSize=10&apiKey=${environment.API_KEY}`;
       const response: any = await this.httpSrv.get(url);
       
       return response.articles || [];
@@ -31,5 +40,9 @@ export class NewsService {
       console.error('Error fetching headlines:', error);
       return [];
     }
+  }
+
+  resetPagination() {
+    this.currentPage = 1;
   }
 }
