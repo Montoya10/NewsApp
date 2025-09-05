@@ -1,0 +1,37 @@
+<!-- src/app/shared/components/news-card/news-card.component.html -->
+<ion-card class="news-card fade-in" (click)="openArticle(news.url)">
+  
+  <!-- Imagen de la noticia -->
+  <div class="news-image-container">
+    @if (news.urlToImage) {
+      <img 
+        [alt]="news.title" 
+        [src]="news.urlToImage" 
+        class="news-image"
+        (error)="news.urlToImage = ''"
+      />
+    } @else {
+      <div class="news-image no-image">
+        <ion-icon name="newspaper-outline"></ion-icon>
+      </div>
+    }
+  </div>
+
+  <div class="news-content">
+    <!-- Título -->
+    <h3 class="news-title">{{ news.title }}</h3>
+    
+    <!-- Descripción -->
+    @if (news.description) {
+      <p class="news-description">{{ news.description }}</p>
+    }
+    
+    <!-- Metadatos -->
+    <div class="news-meta">
+      <span class="news-date">{{ formatDate(news.publishedAt) }}</span>
+      @if (showSource && news.source.name) {
+        <span class="news-source">{{ news.source.name }}</span>
+      }
+    </div>
+  </div>
+</ion-card>

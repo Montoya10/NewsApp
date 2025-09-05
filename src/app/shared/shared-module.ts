@@ -9,19 +9,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from './services/user/user';
 import { CountryService } from './services/countries/countries';
 import { Uuid } from './providers/uuid/uuid';
+import { Http } from './services/http/http';
+import { NewsService } from './services/news/news';
+import { NewsCardComponent } from './components/news-card/news-card.component';
 
 
 
 
 
-const services = [User, CountryService];
-const providers = [Storage, Uuid, ];
+const services = [User, CountryService, NewsService];
+const providers = [Storage, Uuid, Http ];
 
 @NgModule({
   declarations: [
     InputComponent, 
     ButtonComponent, 
-    CountrySelectComponent,  
+    CountrySelectComponent,  NewsCardComponent
   
   ], 
   imports: [
@@ -36,6 +39,7 @@ const providers = [Storage, Uuid, ];
     ReactiveFormsModule, 
     FormsModule,   
     CountrySelectComponent, 
+    NewsCardComponent,
     
  
   ],

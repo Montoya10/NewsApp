@@ -1,20 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- src/app/pages/home/home.page.html -->
+<ion-content [fullscreen]="true" class="home-container">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
 
-<ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">
+        <ion-icon name="newspaper-outline" style="vertical-align: middle; margin-right: 8px;"></ion-icon>
+        Últimas Noticias
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="loading-spinner">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando noticias...</p>
+    </div>
+  }
+
+  <!-- Content State -->
+  @if (!isLoading) {
+    
+    <!-- Titulares principales -->
+    @if (topHeadlines.length > 0) {
+      <ion-list-header class="section-header">
+        <ion-label>🔥 Titulares Principales</ion-label>
+      </ion-list-header>
+      <div class="news-grid">
+        @for (news of topHeadlines; track news.url) {
+          <app-news-card [news]="news" [showSource]="true"></app-news-card>
+        }
+      </div>
+    }
+
+    <!-- Tecnología -->
+    @if (technologyNews.length > 0) {
+      <ion-list-header class="section-header">
+        <ion-label>💻 Tecnología</ion-label>
+      </ion-list-header>
+      <div class="news-grid">
+        @for (news of technologyNews; track news.url) {
+          <app-news-card [news]="news" [showSource]="true"></app-news-card>
+        }
+      </div>
+    }
+
+    <!-- Deportes -->
+    @if (sportsNews.length > 0) {
+      <ion-list-header class="section-header">
+        <ion-label>⚽ Deportes</ion-label>
+      </ion-list-header>
+      <div class="news-grid">
+        @for (news of sportsNews; track news.url) {
+          <app-news-card [news]="news" [showSource]="true"></app-news-card>
+        }
+      </div>
+    }
+
+    <!-- Negocios -->
+    @if (businessNews.length > 0) {
+      <ion-list-header class="section-header">
+        <ion-label>💼 Negocios</ion-label>
+      </ion-list-header>
+      <div class="news-grid">
+        @for (news of businessNews; track news.url) {
+          <app-news-card [news]="news" [showSource]="true"></app-news-card>
+        }
+      </div>
+    }
+
+    <!-- Estado vacío -->
+    @if (topHeadlines.length === 0 && technologyNews.length === 0 && 
+          sportsNews.length === 0 && businessNews.length === 0) {
+      <div class="empty-state">
+        <ion-icon name="newspaper-outline"></ion-icon>
+        <p>No hay noticias disponibles en este momento</p>
+        <ion-button (click)="loadAllNews()" fill="solid">
+          <ion-icon name="refresh" slot="start"></ion-icon>
+          Reintentar
+        </ion-button>
+      </div>
+    }
+  }
 </ion-content>
