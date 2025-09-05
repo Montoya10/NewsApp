@@ -13,7 +13,7 @@ export interface Country {
   providedIn: 'root'
 })
 export class CountryService {
-  private apiUrl = 'https://restcountries.com/v3.1/all';
+  private apiUrl = 'https://restcountries.com/v3.1/all?fields=cca2,name,flags'; 
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +35,7 @@ export class CountryService {
     );
   }
 
-  // Método público para obtener países por defecto
+  
   getDefaultCountries(): Country[] {
     return [
       { code: 'US', name: 'United States', flag: 'https://flagcdn.com/w320/us.png' },

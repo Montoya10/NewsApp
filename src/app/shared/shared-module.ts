@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from './components/input/input.component';
@@ -13,13 +14,31 @@ import { Uuid } from './providers/uuid/uuid';
 
 
 
-const services =[User,CountryService,];
-const providers =[Storage, Uuid,];
+const services = [User, CountryService];
+const providers = [Storage, Uuid, ];
 
 @NgModule({
-  declarations: [InputComponent, ButtonComponent, CountrySelectComponent], 
-  imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule, ],
-  exports: [InputComponent, ButtonComponent, ReactiveFormsModule, FormsModule,   CountrySelectComponent],
-  providers: [...services, ...providers,],
+  declarations: [
+    InputComponent, 
+    ButtonComponent, 
+    CountrySelectComponent,  
+  
+  ], 
+  imports: [
+    CommonModule, 
+    IonicModule, 
+    ReactiveFormsModule, 
+    FormsModule,
+  ],
+  exports: [
+    InputComponent, 
+    ButtonComponent, 
+    ReactiveFormsModule, 
+    FormsModule,   
+    CountrySelectComponent, 
+    
+ 
+  ],
+  providers: [...services, ...providers],
 })
 export class SharedModule { }
