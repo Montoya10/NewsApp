@@ -26,20 +26,8 @@
   <!-- Content State -->
   @if (!isLoading) {
     
-    <!-- Secciones principales -->
-    @if (topHeadlines.length > 0) {
-      <ion-list-header class="section-header">
-        <ion-label>🔥 Titulares Principales</ion-label>
-      </ion-list-header>
-      <div class="news-grid">
-        @for (news of topHeadlines; track news.url) {
-          <app-news-card [news]="news" [showSource]="true"></app-news-card>
-        }
-      </div>
-    }
-
-    <!-- Selector de categoría -->
-    <ion-segment style="background-color: gainsboro;" [value]="currentCategory" (ionChange)="changeCategory(($event.detail.value + '') || 'technology')">
+   
+<ion-segment style="background-color: gainsboro;" [value]="currentCategory" (ionChange)="changeCategory(($event.detail.value + '') || 'technology')">
       <ion-segment-button value="technology">
         <ion-label>Tecnología</ion-label>
       </ion-segment-button>
@@ -51,7 +39,20 @@
       </ion-segment-button>
     </ion-segment>
 
-    <!-- Noticias con infinite scroll -->
+
+    @if (topHeadlines.length > 0) {
+      <ion-list-header class="section-header">
+        <ion-label>🔥 Titulares Principales</ion-label>
+      </ion-list-header>
+      <div class="news-grid">
+        @for (news of topHeadlines; track news.url) {
+          <app-news-card [news]="news" [showSource]="true"></app-news-card>
+        }
+      </div>
+    }
+
+    
+
     <div class="news-grid">
       @for (news of displayedNews; track news.url) {
         <app-news-card [news]="news" [showSource]="true"></app-news-card>
